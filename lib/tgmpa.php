@@ -44,8 +44,8 @@ function uuatheme_register_required_plugins() {
 		array(
 			'name'               => 'UUA Services Plugin', // The plugin name.
 			'slug'               => 'uua-services', // The plugin slug (typically the folder name).
-			'source'             => get_stylesheet_directory() . '/inc/plugins/uua-services.zip', // The plugin source.
-			'version'						 => '0.4',
+			'source'             => 'https://kernl-file-uploads.s3.amazonaws.com/uploads/12-08-2017/06-55-39/uua-services/uua-services.zip', // The plugin source.
+			'version'						 => '1.0.0',
 			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.

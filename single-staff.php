@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying all single posts.
+ * The template for displaying all single staff members.
  *
  */
 
@@ -40,7 +40,7 @@ get_header(); ?>
 			if ( ! isset ( $stafferoptions['manual_mode'] ) ) { ?>
 			<div class="staffer-breadcrumbs">
 				<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" itemprop="url"><?php _e ('Home', 'staffer'); ?></a> &#8250;
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" itemprop="url"><?php _e ('Home', 'uuatheme'); ?></a> &#8250;
 					<a href="<?php echo esc_url ($basepageurl) ; ?>" itemprop="url"><?php echo $pagetitle; ?></a> &#8250;
 					<span itemprop="title"><?php the_title(); ?></span>
 				</div>
@@ -56,6 +56,20 @@ get_header(); ?>
 				echo get_post_meta ($post->ID,'staffer_staff_title', true) . '</small>';
 			}
 			echo '</h2>';
+		?>
+		<?php
+			echo '<p>';
+			// social + contact links
+			if ( get_post_meta ($post->ID,'staffer_staff_phone', true) != '' ) {
+				$phone = get_post_meta ($post->ID,'staffer_staff_phone', true); ?>
+					<span><a href="tel:+1<?php echo get_post_meta ($post->ID,'staffer_staff_phone', true); ?>"><?php echo get_post_meta ($post->ID,'staffer_staff_phone', true); ?></a> &bull; </span>
+			<?php }			
+			if ( get_post_meta ($post->ID,'staffer_staff_email', true) != '' ) {
+				$email = get_post_meta ($post->ID,'staffer_staff_email', true); ?>
+				<a href="mailto:<?php echo antispambot($email);?>?Subject=<?php _e('Contact from ', 'uuatheme'); ?><?php bloginfo('name'); ?>" target="_blank">
+					<?php echo antispambot($email);?></a>
+			<?php }
+			echo '</p>';
 		?>
 	</header>
 
@@ -88,17 +102,17 @@ get_header(); ?>
 	<?php }
 	if ( get_post_meta ($post->ID,'staffer_staff_email', true) != '' ) {
 		$email = get_post_meta ($post->ID,'staffer_staff_email', true); ?>
-		<a href="mailto:<?php echo antispambot($email);?>?Subject=<?php _e ('Contact from ', 'staffer'); ?><?php bloginfo('name'); ?>" target="_blank">
-			<i class="fa fa-envelope fa-lg"></i> </a>
+		<br /><a href="mailto:<?php echo antispambot($email);?>?Subject=<?php _e('Contact from ', 'uuatheme'); ?><?php bloginfo('name'); ?>" target="_blank">
+			<?php echo antispambot($email);?> </a>
 	<?php }
 	if ( get_post_meta ($post->ID,'staffer_staff_website', true) != '' ) {
 		$website = get_post_meta ($post->ID,'staffer_staff_website', true); ?>
-		<a href="<?php echo get_post_meta ($post->ID,'staffer_staff_website', true); ?>" target="_blank">
-			<i class="fa fa-user fa-lg"></i> </a>
+		<br /><a href="<?php echo get_post_meta ($post->ID,'staffer_staff_website', true); ?>" target="_blank">
+			Personal Website </a>
 	<?php }
 	if ( get_post_meta ($post->ID,'staffer_staff_phone', true) != '' ) {
 		$phone = get_post_meta ($post->ID,'staffer_staff_phone', true); ?>
-			<span><a href="tel:+1<?php echo get_post_meta ($post->ID,'staffer_staff_phone', true); ?>"><?php echo get_post_meta ($post->ID,'staffer_staff_phone', true); ?></a> </span>
+			<br /><span><a href="tel:+1<?php echo get_post_meta ($post->ID,'staffer_staff_phone', true); ?>"><?php echo get_post_meta ($post->ID,'staffer_staff_phone', true); ?></a> </span>
 	<?php }
 	?>
 	</div>

@@ -33,12 +33,12 @@ function get_paginated_numbers( $args = [] ) {
     //Set defaults to use
     $defaults = [
         'query'                 => $GLOBALS['wp_query'],
-        'previous_page_text'    => __( '&laquo;' ),
-        'next_page_text'        => __( '&raquo;' ),
-        'first_page_text'       => __( 'First' ),
-        'last_page_text'        => __( 'Last' ),
-        'next_link_text'        => __( 'Older Entries' ),
-        'previous_link_text'    => __( 'Newer Entries' ),
+        'previous_page_text'    => __( '&laquo;' , 'uuatheme'),
+        'next_page_text'        => __( '&raquo;' , 'uuatheme'),
+        'first_page_text'       => __( 'First' , 'uuatheme'),
+        'last_page_text'        => __( 'Last' , 'uuatheme'),
+        'next_link_text'        => __( 'Older Entries' , 'uuatheme'),
+        'previous_link_text'    => __( 'Newer Entries' , 'uuatheme'),
         'show_posts_links'      => false,
         'range'                 => 5,
     ];
@@ -162,7 +162,7 @@ function get_paginated_numbers( $args = [] ) {
              * This is set to the following structure:
              * - Page X of Y
             */
-            $page_text      = '<span class="pagination-indicator">' . sprintf( __( 'Page %s of %s' ), $current_page, $max_pages ) . '</span>';
+            $page_text      = '<span class="pagination-indicator">' . sprintf( __( 'Page %s of %s', 'uuatheme' ), $current_page, $max_pages ) . '</span>';
             // Turn the array of page numbers into a string
             $numbers_string = implode( ' ', $page_numbers );
 

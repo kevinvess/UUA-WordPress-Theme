@@ -1,5 +1,8 @@
 <?php get_header(); ?>
 
+	<div class="primary-content col-md-9">
+	<main id="main" class="main" role="main">
+
 <?php if (!have_posts()) : ?>
   <div class="alert alert-warning">
     <?php _e('Sorry, no results were found.', 'uuatheme'); ?>
@@ -20,4 +23,8 @@
   </nav>
 <?php endif; ?>
 
+</main><!-- #main -->
+</div>
+
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>

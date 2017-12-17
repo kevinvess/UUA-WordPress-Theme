@@ -23,10 +23,10 @@
 				* Add a Section for Congregation Information
 				*/
 			$wp_customize->add_section( 'uuatheme_congregation_information', array(
-				'title'       => __( 'Congregation Information', 'uuatheme' ),
+				'title'       => __( 'Congregation Map Information', 'uuatheme' ),
 				'priority'    => 10,
 				'panel'       => '',
-				'description' => __( 'Make changes to the congregation information', 'uuatheme' ),
+				'description' => __( 'Make changes to the information for maps', 'uuatheme' ),
 			) );
 
 			/**
@@ -102,6 +102,20 @@
 	      'default'     => '',
 	      'priority'    => 15,
 	  );
+
+	  /**
+	   * Add Google Maps API Key
+	   */
+	  $fields[] = array(
+	      'type'        => 'text',
+	      'setting'     => 'uuatheme_googlemapsapi',
+	      'label'       => __( 'Google Maps API Key', 'uuatheme' ),
+	      'description' => __( 'What is your Google Maps API Key', 'uuatheme' ),
+	      'section'     => 'uuatheme_congregation_information',
+	      'default'     => '',
+	      'priority'    => 15,
+	  );
+	  
 
 
 	/* SOCIAL CONNECTIONS */
@@ -274,3 +288,17 @@ function uuatheme_customizer_live_preview() {
     wp_enqueue_script( 'uuatheme_css_preview', get_template_directory_uri().'/inc/js/uuatheme-customizer-preview.js', array( 'customize-preview', 'jquery' ), '', true );
 }
 add_action( 'customize_preview_init', 'uuatheme_customizer_live_preview' );
+
+
+
+
+/**
+ * Configuration sample for the Kirki Customizer.
+ */
+function kirki_configuration() {
+	$args = array(
+		'disable_output' => true,
+	);
+	return $args;
+}
+add_filter( 'kirki/config', 'kirki_configuration' );

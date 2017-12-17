@@ -8,91 +8,92 @@
  * @return      void
 */
 
-function uuatheme_map_shortcode( $atts ) {
 
-	$atts = shortcode_atts(
-		array(
-			'address'           => false,
-			'label'           	=> false,
-			'width'             => '100%',
-			'height'            => '400px',
-			'enablescrollwheel' => 'true',
-			'zoom'              => 15,
-			'disablecontrols'   => 'false'
-		),
-		$atts
-	);
+if ( ! function_exists('uuatheme_map_shortcode') ) {
 
-	$address = $atts['address'];
+	function uuatheme_map_shortcode( $atts ) {
 
-	if( $address )	if( $address && wp_script_is( 'google-maps-api', 'registered' ) ) :
+		$googlemapsapikey = get_theme_mod('uuatheme_googlemapsapi');
 
-		wp_print_scripts( 'google-maps-api' );
+		$atts = shortcode_atts(
+			array(
+				'address'           => false,
+				'label'           	=> false,
+				'width'             => '100%',
+				'height'            => '400px',
+				'enablescrollwheel' => 'true',
+				'zoom'              => 15,
+				'disablecontrols'   => 'false'
+			),
+			$atts
+		);
 
-		$coordinates = uuatheme_map_get_coordinates( $address );
+		$address = $atts['address'];
 
-		if( !is_array( $coordinates ) )
-			return;
+		wp_enqueue_script( 'google-maps-api', '//maps.google.com/maps/api/js?key=' . $googlemapsapikey );
 
-		$map_id = uniqid( 'uuatheme_map_' ); // generate a unique ID for this map
+		if( $address  ) :
 
-		ob_start(); ?>
-		<div class="uuatheme_map_canvas" id="<?php echo esc_attr( $map_id ); ?>" style="height: <?php echo esc_attr( $atts['height'] ); ?>; width: <?php echo esc_attr( $atts['width'] ); ?>"></div><a href="https://maps.google.com?saddr=Current+Location&daddr=<?php echo $coordinates['lat']; ?>,<?php echo $coordinates['lng']; ?>" target="_blank">Directions from your current location</a>
-	    <script type="text/javascript">
-			var map_<?php echo $map_id; ?>;
-			function uuatheme_run_map_<?php echo $map_id ; ?>(){
-				var location = new google.maps.LatLng("<?php echo $coordinates['lat']; ?>", "<?php echo $coordinates['lng']; ?>");
-				var map_options = {
-					zoom: <?php echo $atts['zoom']; ?>,
-					center: location,
-					scrollwheel: <?php echo 'true' === strtolower( $atts['enablescrollwheel'] ) ? '1' : '0'; ?>,
-					disableDefaultUI: <?php echo 'true' === strtolower( $atts['disablecontrols'] ) ? '1' : '0'; ?>,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
+			wp_print_scripts( 'google-maps-api' );
+
+			$coordinates = uuatheme_map_get_coordinates( $address );
+
+			if( !is_array( $coordinates ) )
+				return;
+
+			$map_id = uniqid( 'uuatheme_map_' ); // generate a unique ID for this map
+
+			ob_start(); ?>
+			<div class="uuatheme_map_canvas" id="<?php echo esc_attr( $map_id ); ?>" style="height: <?php echo esc_attr( $atts['height'] ); ?>; width: <?php echo esc_attr( $atts['width'] ); ?>; color: black;"></div><a href="https://maps.google.com?saddr=Current+Location&daddr=<?php echo $coordinates['lat']; ?>,<?php echo $coordinates['lng']; ?>" target="_blank"><?php _e("Directions from your current location", "uuatheme"); ?></a>
+		    <script type="text/javascript">
+				var map_<?php echo $map_id; ?>;
+				function uuatheme_run_map_<?php echo $map_id ; ?>(){
+					var location = new google.maps.LatLng("<?php echo $coordinates['lat']; ?>", "<?php echo $coordinates['lng']; ?>");
+					var map_options = {
+						zoom: <?php echo $atts['zoom']; ?>,
+						center: location,
+						scrollwheel: <?php echo 'true' === strtolower( $atts['enablescrollwheel'] ) ? '1' : '0'; ?>,
+						disableDefaultUI: <?php echo 'true' === strtolower( $atts['disablecontrols'] ) ? '1' : '0'; ?>,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					}
+					map_<?php echo $map_id ; ?> = new google.maps.Map(document.getElementById("<?php echo $map_id ; ?>"), map_options);
+
+					var contentString = '<?php echo get_bloginfo('name'); ?>';
+				
+					var infowindow = new google.maps.InfoWindow({
+						content: contentString
+					});
+				
+					var marker = new google.maps.Marker({
+						position: location,
+						animation: google.maps.Animation.DROP,
+					    title: '<?php echo get_bloginfo('name'); ?>',
+						map: map_<?php echo $map_id ; ?>
+					});
+								
+	/*
+					marker.addListener('click', function() {
+						infowindow.open(map_<?php echo $map_id ; ?>, marker);
+					});
+					infowindow.open(map_<?php echo $map_id ; ?>,marker);
+	*/
+					
+					google.maps.event.addListenerOnce(map_<?php echo $map_id ; ?>, 'tilesloaded', function() {
+					  infowindow.open(map_<?php echo $map_id ; ?>, marker);
+					});
+
 				}
-				map_<?php echo $map_id ; ?> = new google.maps.Map(document.getElementById("<?php echo $map_id ; ?>"), map_options);
+				uuatheme_run_map_<?php echo $map_id ; ?>();
+			</script>
+			<?php
+			return ob_get_clean();
+		else :
+			return __( 'This Google Map cannot be loaded because the maps API does not appear to be loaded', 'uuatheme' );
+		endif;
+	}
+	add_shortcode( 'uuatheme_map', 'uuatheme_map_shortcode' );
 
-				var contentString = 'Church';
-			
-			  var infowindow = new google.maps.InfoWindow({
-			    content: contentString
-			  });
-			
-				var marker = new google.maps.Marker({
-					position: location,
-				  animation: google.maps.Animation.DROP,
-			    title: '<?php echo esc_attr( $atts['label'] ); ?>',
-					map: map_<?php echo $map_id ; ?>
-				});
-							
-			  marker.addListener('click', function() {
-			    infowindow.open(map_<?php echo $map_id ; ?>, marker);
-			  });
-
-			}
-			uuatheme_run_map_<?php echo $map_id ; ?>();
-		</script>
-		<?php
-		return ob_get_clean();
-	else :
-		return __( 'This Google Map cannot be loaded because the maps API does not appear to be loaded', 'uuatheme-maps' );
-	endif;
 }
-add_shortcode( 'uuatheme_map', 'uuatheme_map_shortcode' );
-
-
-/**
- * Loads Google Map API
- *
- * @access      private
- * @since       1.0
- * @return      void
-*/
-
-function uuatheme_map_load_scripts() {
-	wp_register_script( 'google-maps-api', '//maps.google.com/maps/api/js?sensor=false' );
-}
-add_action( 'wp_enqueue_scripts', 'uuatheme_map_load_scripts' );
-
 
 
 /**
@@ -142,15 +143,15 @@ function uuatheme_map_get_coordinates( $address, $force_refresh = false ) {
 			  	$data = $cache_value;
 
 			} elseif ( $data->status === 'ZERO_RESULTS' ) {
-			  	return __( 'No location found for the entered address.', 'uuatheme-maps' );
+			  	return __( 'No location found for the entered address.', 'uuatheme' );
 			} elseif( $data->status === 'INVALID_REQUEST' ) {
-			   	return __( 'Invalid request. Did you enter an address?', 'uuatheme-maps' );
+			   	return __( 'Invalid request. Did you enter an address?', 'uuatheme' );
 			} else {
-				return __( 'Something went wrong while retrieving your map, please ensure you have entered the short code correctly.', 'uuatheme-maps' );
+				return __( 'Something went wrong while retrieving your map, please ensure you have entered the short code correctly.', 'uuatheme' );
 			}
 
 		} else {
-		 	return __( 'Unable to contact Google API service.', 'uuatheme-maps' );
+		 	return __( 'Unable to contact Google API service.', 'uuatheme' );
 		}
 
     } else {

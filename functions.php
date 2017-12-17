@@ -16,7 +16,7 @@ include_once( dirname( __FILE__ ) . '/inc/kirki/kirki.php' );
  */
 function kirki_update_url( $config ) {
 
-    $config['url_path'] = get_stylesheet_directory_uri() . '/inc/kirki/';
+    $config['url_path'] = get_template_directory_uri() . '/inc/kirki/';
     return $config;
 
 }
@@ -26,8 +26,8 @@ add_filter( 'kirki/config', 'kirki_update_url' );
 
 
 /**
-	* TGM PLUGIN ACTIVATION LIBRARY
-	*
+  * TGM PLUGIN ACTIVATION LIBRARY
+  *
   * Include the TGM_Plugin_Activation class.
   * 
   * @link http://tgmpluginactivation.com/
@@ -42,28 +42,12 @@ add_action( 'tgmpa_register', 'uuatheme_register_required_plugins' );
 
 
 /**
-	* CMB2 ACTIVATION
-	*
-  * Get the CMB2 Bootstrap
-  * 
-  * @link https://github.com/WebDevStudios/CMB2
-  *
-  */
-
-if ( file_exists(  __DIR__ . '/inc/cmb2/init.php' ) ) {
-  require_once  __DIR__ . '/inc/cmb2/init.php';
-} elseif ( file_exists(  __DIR__ . '/inc/CMB2/init.php' ) ) {
-  require_once  __DIR__ . '/inc/CMB2/init.php';
-}
-
-
-
-/**
-	* Automatic Updates
-	* 
-  */
+ * AUTOMATIC UPDATES
+ * 
+ */
 require_once('wp-updates-theme.php');
 new WPUpdatesThemeUpdater_1567( 'http://wp-updates.com/api/2/theme', basename( get_template_directory() ) );
+
 
 
 /**
@@ -76,21 +60,21 @@ new WPUpdatesThemeUpdater_1567( 'http://wp-updates.com/api/2/theme', basename( g
  *
  */
 $uuatheme_includes = array(
-  'lib/kirki.php',           									// Theme Customizer Functions
-  'lib/tgmpa.php',           									// Required and Recommended Plugin functions
-  'lib/cmb2.php',            									// CMB2 - Custom MetaBox functions
-  'lib/utils.php',           									// Utility functions
-  'lib/init.php',            									// Initial theme setup and constants
-  'lib/config.php',          									// Configuration
-  'lib/titles.php',          									// Page titles
-  'lib/nav.php',             									// Custom nav modifications
-  'lib/scripts.php',         									// Scripts and stylesheets
-  'lib/context-nav.php',     									// Contextual Navigation
-  'lib/shortcodes/google-maps.php',   				// Google Maps Shortcodes
-  'lib/shortcodes/uua-staffer.php',   				// Staffer Shortcodes
-  'lib/shortcodes/uua-testimonials.php',   				// Staffer Shortcodes
-	'lib/widgets/uua-feature-box-widgets.php',	// UUA Feature Box Widgets
-  'lib/extras.php',          									// Custom functions
+  'lib/kirki.php',           					// Theme Customizer Functions
+  'lib/tgmpa.php',           					// Required and Recommended Plugin functions
+  'lib/utils.php',           					// Utility functions
+  'lib/init.php',            					// Initial theme setup and constants
+  'lib/config.php',          					// Configuration
+  'lib/titles.php',          					// Page titles
+  'lib/nav.php',             					// Custom nav modifications
+  'lib/scripts.php',         					// Scripts and stylesheets
+  'lib/context-nav.php',     					// Contextual Navigation
+  'lib/shortcodes/google-maps.php',   			// Google Maps Shortcodes
+  'lib/shortcodes/uua-staffer.php',   			// Staffer Shortcodes
+  'lib/shortcodes/uua-testimonials.php',   		// Staffer Shortcodes
+  'lib/widgets/uua-feature-box-widgets.php',	// UUA Feature Box Widgets
+  'lib/widgets/uua-bookstore-widget.php',		// UUA Bookstore Widget
+  'lib/extras.php',          					// Custom functions
 );
 
 foreach ($uuatheme_includes as $file) {

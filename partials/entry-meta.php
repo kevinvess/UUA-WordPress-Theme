@@ -1,1 +1,3 @@
-<div class="entrymeta"><time class="updated" datetime="<?php echo get_the_time('c'); ?>"><?php echo get_the_date(); ?></time><!--  <span class="byline author vcard"><?php echo __('By', 'uuatheme'); ?> <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>" rel="author" class="fn"><?php echo get_the_author(); ?></a></span> --></div>
+<div class="entrymeta">
+	<time class="updated" datetime="<?php echo get_the_time('c'); ?>"><?php echo get_the_date(); ?></time> &bull; <span class="post-author"><?php the_author_posts_link(); ?></span>
+</div>

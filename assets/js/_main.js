@@ -8,10 +8,6 @@
  * .noConflict()
  * The routing is enclosed within an anonymous function so that you can 
  * always reference jQuery with $, even when in .noConflict() mode.
- *
- * Google CDN, Latest jQuery
- * To use the default WordPress version of jQuery, go to lib/config.php and
- * remove or comment out: add_theme_support('jquery-cdn');
  * ======================================================================== */
 
 (function($) {
@@ -22,13 +18,24 @@ var uuatheme = {
   // All pages
   common: {
     init: function() {
-      // JavaScript to be fired on all pages
+      /* Toggles for search and location */
+      $('.location-toggle').click(function () {
+        $('.slide-location').toggleClass('active');
+      });
+      $('.search-toggle').click(function () {
+        $('.slide-search').toggleClass('active');
+      });
+      /* FITVIDS - Target your .container, .wrapper, .post, etc. */
+      $(".wrap").fitVids();     
     }
   },
   // Home page
   home: {
     init: function() {
-      // JavaScript to be fired on the home page
+      /* MatchHeights */      
+      $(function() {
+        $('.widget .thumbnail, .match').matchHeight();
+      });
     }
   },
   // About us page, note the change from about-us to about_us.

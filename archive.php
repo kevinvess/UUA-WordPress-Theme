@@ -7,23 +7,26 @@
 
 get_header(); ?>
 
-	
 	<div class="primary-content col-md-7 col-md-push-2">
 	<main id="main" class="main" role="main">
-		
+
 		<h1 class="page-title"><?php echo uuatheme_title(); ?></h1>
-		
+
+		<?php if(is_tax( 'uu_service_speaker' ) || is_tax( 'uu_service_topic' )) { ?>
+			<?php echo term_description(); ?>
+		<?php } ?>
+
 		<?php if (!have_posts()) : ?>
 		  <div class="alert alert-warning">
 		    <?php _e('Sorry, no results were found.', 'uuatheme'); ?>
 		  </div>
 		  <?php get_search_form(); ?>
 		<?php endif; ?>
-		
+
 		<?php while (have_posts()) : the_post(); ?>
 		  <?php get_template_part('partials/content', get_post_format()); ?>
 		<?php endwhile; ?>
-		
+
 		<?php if ($wp_query->max_num_pages > 1) : ?>
 		  <nav class="post-nav">
 		    <ul class="pager">

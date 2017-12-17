@@ -26,7 +26,7 @@ public function uuafbw_assets()
 {
     wp_enqueue_script('media-upload');
     wp_enqueue_script('thickbox');
-    wp_enqueue_script('uuafbw-media-upload', plugin_dir_url(__FILE__) . 'uuafbw-media-upload.js', array('jquery'));
+    wp_enqueue_script('uuafbw-media-upload', get_template_directory_uri() . '/lib/widgets/uuafbw-media-upload.js', array('jquery'));
     wp_enqueue_style('thickbox');
 }
 
@@ -87,27 +87,27 @@ public function uuafbw_assets()
 		}
         ?>
         <p>
-            <label for="<?php echo $this->get_field_name( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+            <label for="<?php echo $this->get_field_name( 'title' ); ?>"><?php _e( 'Title:', 'uuatheme' ); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_name( 'description' ); ?>"><?php _e( 'Description:' ); ?></label>
+            <label for="<?php echo $this->get_field_name( 'description' ); ?>"><?php _e( 'Description:', 'uuatheme' ); ?></label>
             <textarea class="widefat" id="<?php echo $this->get_field_id( 'description' ); ?>" name="<?php echo $this->get_field_name( 'description' ); ?>" type="text" ><?php echo esc_attr( $description ); ?></textarea>
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_name( 'link_url' ); ?>"><?php _e( 'Link URL:' ); ?></label>
+            <label for="<?php echo $this->get_field_name( 'link_url' ); ?>"><?php _e( 'Link URL:', 'uuatheme' ); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id( 'link_url' ); ?>" name="<?php echo $this->get_field_name( 'link_url' ); ?>" type="text" value="<?php echo esc_attr( $link_url ); ?>" />
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_name( 'link_title' ); ?>"><?php _e( 'Link Title:' ); ?></label>
+            <label for="<?php echo $this->get_field_name( 'link_title' ); ?>"><?php _e( 'Link Title:', 'uuatheme' ); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id( 'link_title' ); ?>" name="<?php echo $this->get_field_name( 'link_title' ); ?>" type="text" value="<?php echo esc_attr( $link_title ); ?>" />
         </p>
 
         <p>
-            <label for="<?php echo $this->get_field_name( 'image' ); ?>"><?php _e( 'Image:' ); ?></label>
+            <label for="<?php echo $this->get_field_name( 'image' ); ?>"><?php _e( 'Image:', 'uuatheme' ); ?></label>
             <input name="<?php echo $this->get_field_name( 'image' ); ?>" id="<?php echo $this->get_field_id( 'image' ); ?>" class="widefat" type="text" size="36"  value="<?php echo esc_url( $image ); ?>" />
             <input class="upload_image_button" type="button" value="Upload Image" />
         </p>

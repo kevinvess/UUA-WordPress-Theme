@@ -20,7 +20,7 @@
 	    <?php dynamic_sidebar('sidebar-footer-two'); ?>
 	    <?php dynamic_sidebar('sidebar-footer-three'); ?>
 	    <section class="col-md-3 affiliation-logos widget text-3 widget_text">			
-		    <a href="http://uua.org" title="Unitarian Universalist Association"><img src="<?php echo get_template_directory_uri();?>/assets/img/uua-flag.png" alt="Unitarian Universalist Association Logo" class="img-responsive uua-flag"></a>
+		    <a href="https://uua.org" title="Unitarian Universalist Association"><img src="<?php echo get_template_directory_uri();?>/assets/img/uua-flag.png" alt="Unitarian Universalist Association Logo" class="img-responsive uua-flag"></a>
 	    	<?php if ( $uuatheme_welcoming_congregation_link = get_theme_mod('uuatheme_welcoming_congregation_link') ) : ?>
 					<a href="<?php echo esc_url($uuatheme_welcoming_congregation_link); ?>" title="Welcoming Congregation"><img src="<?php echo get_template_directory_uri();?>/assets/img/welcoming-congregation.png" alt="Welcoming Congregation Logo" class="welcoming-congregation-logo"></a>
 				<?php endif; ?>
@@ -54,47 +54,6 @@
 </footer>
 	
 <?php wp_footer(); ?>
-
-	<script>
-		jQuery(document).ready(function($) {
-
-			/* Toggles for search and location */
-			$('.location-toggle').click(function () {
-		    $('.slide-location').toggleClass('active');
-			});
-
-			$('.search-toggle').click(function () {
-		    $('.slide-search').toggleClass('active');
-			});
-
-			
-			/* MatchHeights */			
-			$(function() {
-		    $('.widget .thumbnail, .match').matchHeight();
-			});
-			
-		  // FITVIDS - Target your .container, .wrapper, .post, etc.
-	    $(".wrap").fitVids();
-			
-			/*  Smooth scrolling anchor links */
-			$('a[href*=#]:not([href=#])').click(function() {
-			    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
-			        || location.hostname == this.hostname) {
-			
-			        var target = $(this.hash);
-			        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-			           if (target.length) {
-			             $('html,body').animate({
-			                 scrollTop: target.offset().top
-			            }, 1000);
-			            return false;
-			        }
-			    }
-			});
-			
-			
-		});
-	</script>
 
 </body>
 </html>

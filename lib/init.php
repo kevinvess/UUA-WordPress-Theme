@@ -41,7 +41,7 @@ function uuatheme_setup() {
 
   // Add HTML5 markup for captions
   // http://codex.wordpress.org/Function_Reference/add_theme_support#HTML5
-  add_theme_support('html5', array('caption', 'comment-form', 'comment-list'));
+  add_theme_support('html5', array('caption', 'comment-form', 'search-form', 'comment-list'));
 
   // Tell the TinyMCE editor to use a custom stylesheet
   add_editor_style('/assets/css/editor-style.css');
@@ -71,7 +71,7 @@ function uuatheme_widgets_init() {
   ));
   
   register_sidebar(array(
-    'name'          => __('Left Sidebar', 'roots'),
+    'name'          => __('Left Sidebar', 'uuatheme'),
     'id'            => 'sidebar-left',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -80,7 +80,7 @@ function uuatheme_widgets_init() {
   ));
     
   register_sidebar(array(
-    'name'          => __('Home 1', 'roots'),
+    'name'          => __('Home 1', 'uuatheme'),
     'id'            => 'sidebar-home-one',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -89,7 +89,7 @@ function uuatheme_widgets_init() {
   ));
   
   register_sidebar(array(
-    'name'          => __('Home 2', 'roots'),
+    'name'          => __('Home 2', 'uuatheme'),
     'id'            => 'sidebar-home-two',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -98,7 +98,7 @@ function uuatheme_widgets_init() {
   ));
   
   register_sidebar(array(
-    'name'          => __('Home 3', 'roots'),
+    'name'          => __('Home 3', 'uuatheme'),
     'id'            => 'sidebar-home-three',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -107,7 +107,7 @@ function uuatheme_widgets_init() {
   ));
   
   register_sidebar(array(
-    'name'          => __('Home 4', 'roots'),
+    'name'          => __('Home 4', 'uuatheme'),
     'id'            => 'sidebar-home-four',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -116,7 +116,7 @@ function uuatheme_widgets_init() {
   ));
   
   register_sidebar(array(
-    'name'          => __('Home 5', 'roots'),
+    'name'          => __('Home 5', 'uuatheme'),
     'id'            => 'sidebar-home-five',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -125,7 +125,7 @@ function uuatheme_widgets_init() {
   ));
   
   register_sidebar(array(
-    'name'          => __('Home 6', 'roots'),
+    'name'          => __('Home 6', 'uuatheme'),
     'id'            => 'sidebar-home-six',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -134,7 +134,7 @@ function uuatheme_widgets_init() {
   ));
   
   register_sidebar(array(
-    'name'          => __('Home 7', 'roots'),
+    'name'          => __('Home 7', 'uuatheme'),
     'id'            => 'sidebar-home-seven',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
@@ -143,7 +143,7 @@ function uuatheme_widgets_init() {
   ));
   
   register_sidebar(array(
-    'name'          => __('Home 8', 'roots'),
+    'name'          => __('Home 8', 'uuatheme'),
     'id'            => 'sidebar-home-eight',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',

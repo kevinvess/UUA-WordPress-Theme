@@ -6,20 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="alternate" type="application/rss+xml" title="<?php echo get_bloginfo('name'); ?> Feed" href="<?php echo esc_url(get_feed_link()); ?>">
 
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-	
   <?php wp_head(); ?>
 </head>
 
 <?php // declare page variables
-			$facebook_url = get_theme_mod('uuatheme_facebook_link');
-			$twitter_url = get_theme_mod('uuatheme_twitter_link');
-			$youtube_url = get_theme_mod('uuatheme_youtube_link');
-			$pinterest_url = get_theme_mod('uuatheme_pinterest_link');
-			$instagram_url = get_theme_mod('uuatheme_instagram_link');
-			$googleplus_url = get_theme_mod('uuatheme_googleplus_link');
-			$uuatheme_header_text = get_theme_mod('uuatheme_header_text');
-			$uuatheme_colour_scheme = get_theme_mod('uuatheme_colors');
+	$facebook_url = get_theme_mod('uuatheme_facebook_link');
+	$twitter_url = get_theme_mod('uuatheme_twitter_link');
+	$youtube_url = get_theme_mod('uuatheme_youtube_link');
+	$pinterest_url = get_theme_mod('uuatheme_pinterest_link');
+	$instagram_url = get_theme_mod('uuatheme_instagram_link');
+	$googleplus_url = get_theme_mod('uuatheme_googleplus_link');
+	$uuatheme_header_text = get_theme_mod('uuatheme_header_text');
+	$uuatheme_colour_scheme = get_theme_mod('uuatheme_colors');
 ?>
 
 <body <?php body_class($uuatheme_colour_scheme); ?>>
@@ -37,6 +35,7 @@
 		<div class="col-md-7 logo-area">
 		<a class="navbar-brand" rel="home" href="<?php echo esc_url(home_url('/')); ?>">
 		<?php if( $logo = get_theme_mod('uuatheme_logo_upload') ) : ?>
+			<?php if (is_ssl()) { $logo = str_replace('http://', 'https://', $logo ); } ?>
 			<img src="<?php echo esc_url($logo) ?>" alt="<?php bloginfo( 'name' ); ?> Logo">
 			<div class="site-title" style="text-indent: -9999px;">
 				<h1><?php bloginfo( 'name' ); ?></h1>
