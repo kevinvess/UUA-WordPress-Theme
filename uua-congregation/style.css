@@ -1,7 +1,7 @@
 /*
-Theme Name:         UUA Congregations
+Theme Name:         UUA Congregation
 Description:        A custom theme for Unitarian Universalist Congregations
-Version:            1.1.0
+Version:            1.1.1
 Author:             Christopher Wulff
 Author URI:         http://patienceandfortitude.com
 Theme URI:          http://uuatheme.org
@@ -6677,6 +6677,10 @@ a:hover {
 .content-info .row {
   padding-bottom: 30px;
 }
+main,
+#main {
+  display: block;
+}
 .slide-search,
 .slide-location {
   height: 0px;
@@ -6797,7 +6801,7 @@ header.navbar {
   letter-spacing: 1px;
   font-weight: 300;
 }
-.collapse .nav > li.dropdown a {
+.collapse .nav > li a {
   font-size: 90%;
   font-weight: 300;
 }
@@ -7428,6 +7432,10 @@ aside.sidebar {
 }
 .uuais-entry .uuais-buynow:hover {
   text-decoration: none;
+}
+.footer-widgets .uuais-entry {
+  background: none;
+  padding-top: 30px;
 }
 #skip a {
   position: absolute;
