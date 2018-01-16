@@ -66,21 +66,21 @@ $MyUpdateChecker = new ThemeUpdateChecker(
  *
  */
 $uuatheme_includes = array(
-  'lib/kirki.php',                    // Theme Customizer Functions
-  'lib/tgmpa.php',                    // Required and Recommended Plugin functions
-  'lib/utils.php',                    // Utility functions
-  'lib/init.php',                     // Initial theme setup and constants
-  'lib/config.php',                   // Configuration
-  'lib/titles.php',                   // Page titles
-  'lib/nav.php',                      // Custom nav modifications
-  'lib/scripts.php',                  // Scripts and stylesheets
-  'lib/context-nav.php',              // Contextual Navigation
-  'lib/shortcodes/google-maps.php',         // Google Maps Shortcodes
-  'lib/shortcodes/uua-staffer.php',         // Staffer Shortcodes
-  'lib/shortcodes/uua-testimonials.php',      // Staffer Shortcodes
-  'lib/widgets/uua-feature-box-widgets.php',  // UUA Feature Box Widgets
-  'lib/widgets/uua-bookstore-widget.php',   // UUA Bookstore Widget
-  'lib/extras.php',                   // Custom functions
+  'lib/kirki.php',           					// Theme Customizer Functions
+  'lib/tgmpa.php',           					// Required and Recommended Plugin functions
+  'lib/utils.php',           					// Utility functions
+  'lib/init.php',            					// Initial theme setup and constants
+  'lib/config.php',          					// Configuration
+  'lib/titles.php',          					// Page titles
+  'lib/nav.php',             					// Custom nav modifications
+  'lib/scripts.php',         					// Scripts and stylesheets
+  'lib/context-nav.php',     					// Contextual Navigation
+  'lib/shortcodes/google-maps.php',   			// Google Maps Shortcodes
+  'lib/shortcodes/uua-staffer.php',   			// Staffer Shortcodes
+  'lib/shortcodes/uua-testimonials.php',   		// Staffer Shortcodes
+  'lib/widgets/uua-feature-box-widgets.php',	// UUA Feature Box Widgets
+  'lib/widgets/uua-bookstore-widget.php',		// UUA Bookstore Widget
+  'lib/extras.php',          					// Custom functions
 );
 
 foreach ($uuatheme_includes as $file) {
