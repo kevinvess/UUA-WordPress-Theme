@@ -45,7 +45,7 @@ function uuatheme_register_required_plugins() {
 			'name'               => 'UUA Services Plugin', // The plugin name.
 			'slug'               => 'uua-services', // The plugin slug (typically the folder name).
 			'source'             => 'https://kernl.us/api/v1/archive/5a52975ed4004a21903767fb', // The plugin source.
-			'version'						 => '1.0.1',
+			'version'						 => '1.0.2',
 			'required'           => false, // If false, the plugin is only 'recommended' instead of required.
 			'force_activation'   => false, // If true, plugin is activated upon theme activation and cannot be deactivated until theme switch.
 			'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.

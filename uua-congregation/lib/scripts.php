@@ -18,8 +18,9 @@ if ( ! function_exists('uuatheme_scripts') ) {
       wp_enqueue_script('comment-reply');
     }
 
-    wp_deregister_script( 'jquery' );
-    wp_register_script( 'jquery', "//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js", array(), '3.2.1' );
+    // Commented out per http://uuatheme.org/question/v1-1-theme-jquery-is-breaking-other-plugins-heres-a-workaround/
+    // wp_deregister_script( 'jquery' );
+    // wp_register_script( 'jquery', "//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js", array(), '3.2.1' );
 
     wp_enqueue_script('uuatheme_js', get_template_directory_uri() . $assets['js'], array('jquery'), null, false);
   }
