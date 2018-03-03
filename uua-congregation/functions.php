@@ -7,33 +7,35 @@
  *
  */
 
-// Include Kirki Customizer Library
-include_once( dirname( __FILE__ ) . '/inc/kirki/kirki.php' );
-
 /**
- * Change the URL that will be used by Kirki
- * to load its assets in the customizer.
+ * Kirki Customizer Library
  */
-function kirki_update_url( $config ) {
+if ( ! class_exists( 'Kirki' ) ) {
 
-    $config['url_path'] = get_template_directory_uri() . '/inc/kirki/';
-    return $config;
+    include_once( dirname( __FILE__ ) . '/inc/kirki/kirki.php' );
+
+    /**
+     * Change the URL that will be used by Kirki
+     * to load its assets in the customizer.
+     */
+    function uuatheme_kirki_path( $config ) {
+        $config['url_path'] = get_template_directory_uri() . '/inc/kirki/';
+        return $config;
+    }
+    add_filter( 'kirki_config', 'uuatheme_kirki_path' );
 
 }
-add_filter( 'kirki/config', 'kirki_update_url' );
-
-
 
 
 /**
   * TGM PLUGIN ACTIVATION LIBRARY
   *
   * Include the TGM_Plugin_Activation class.
-  * 
+  *
   * @link http://tgmpluginactivation.com/
   *
   */
-  
+
 require_once dirname( __FILE__ ) . '/inc/tgmpa/class-tgm-plugin-activation.php';
 
 add_action( 'tgmpa_register', 'uuatheme_register_required_plugins' );
@@ -44,7 +46,7 @@ add_action( 'tgmpa_register', 'uuatheme_register_required_plugins' );
 /**
  * AUTOMATIC UPDATES FROM KERNL
  * This replaces the WP Updates for theme and plugin update management
- * 
+ *
  */
 require 'theme_update_check.php';
 $MyUpdateChecker = new ThemeUpdateChecker(

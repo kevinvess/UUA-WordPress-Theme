@@ -1,304 +1,253 @@
 <?php
 /**
- * Include and setup custom metaboxes and fields.
+ * Include and setup customizer fields.
  *
  * @category UUA Theme
  * @license  http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
  *
  */
 
- function uuatheme_panels_sections( $wp_customize ) {
-	
-			/**
-				* Add a Section for Design Options
-				*/
-			$wp_customize->add_section( 'uuatheme_design_options', array(
-				'title'       => __( 'Theme Colour Options', 'uuatheme' ),
-				'priority'    => 10,
-				'panel'       => '',
-				'description' => __( 'Make changes to the site colour scheme', 'uuatheme' ),
-			) );
+function uuatheme_kirki_init() {
 
-			/**
-				* Add a Section for Congregation Information
-				*/
-			$wp_customize->add_section( 'uuatheme_congregation_information', array(
-				'title'       => __( 'Congregation Map Information', 'uuatheme' ),
-				'priority'    => 10,
-				'panel'       => '',
-				'description' => __( 'Make changes to the information for maps', 'uuatheme' ),
-			) );
+    if ( ! class_exists( 'Kirki' ) ) {
+        return;
+    }
 
-			/**
-				* Add a Section for Header Options
-				*/
-			$wp_customize->add_section( 'uuatheme_header_options', array(
-				'title'       => __( 'Header Options', 'uuatheme' ),
-				'priority'    => 10,
-				'panel'       => '',
-				'description' => __( 'Make changes to the header section', 'uuatheme' ),
-			) );
-			
-			/**
-				* Add a Section for Footer Options
-				*/
-			$wp_customize->add_section( 'uuatheme_footer_options', array(
-				'title'       => __( 'Footer Options', 'uuatheme' ),
-				'priority'    => 10,
-				'panel'       => '',
-				'description' => __( 'Make changes to the footer section', 'uuatheme' ),
-			) );
-						
-			/** 
-				* Add a Section for Social Connections
-		    */
-			$wp_customize->add_section( 'uuatheme_social_connections', array(
-				'title'       => __( 'Social Network Connections', 'uuatheme' ),
-				'priority'    => 10,
-				'panel'       => '',
-				'description' => __( 'Add social network page addresses for icon links in header and footer. Put the page address in the box including the http:// part.', 'uuatheme' ),
-			) );
-	
-	  }
-	  add_action( 'customize_register', 'uuatheme_panels_sections' );
+    /*
+     * First of all, add the config.
+     *
+     * @link https://aristath.github.io/kirki/docs/getting-started/config.html
+     */
+    Kirki::add_config( 'uuatheme_kirki_config', array(
+        'capability'  => 'edit_theme_options',
+        'option_type' => 'theme_mod',
+    ) );
 
-	
-/**
-	* Add Fields to the sections
-	*/
-	function uuatheme_fields( $fields ) {
+    /*
+     * Add Sections
+     *
+     * @link https://aristath.github.io/kirki/docs/getting-started/sections.html
+     */
+    Kirki::add_section( 'uuatheme_design_options', array(
+        'title'          => esc_attr__( 'Theme Colour Options', 'uuatheme' ),
+        'description'    => esc_attr__( 'Configure the site colour scheme', 'uuatheme' ),
+        'panel'          => '',
+        'priority'       => 10,
+    ) );
 
-	/* SITEWIDE FIELDS */
-    
-	  /**
-	   * Add a Field to change the site color scheme
-	   */
-	  $fields[] = array(
-		    'type'        => 'radio',
-		    'settings'     => 'uuatheme_colors',
-		    'label'       => __( 'Site Color Scheme', 'kirki' ),
-		    'description' => __( 'Choose from the dark blue, grey-red, or aqua-green colour scheme.', 'kirki' ),
-		    'section'     => 'uuatheme_design_options',
-	      'default'     => 'fullwidth',
-		    'priority'    => 10,
-		    'choices'     => array(
-		        'dark-blue' => __( 'Dark Blue', 'kirki' ),
-		        'grey-red' => __( 'Grey Red', 'kirki' ),
-		        'aqua-green' => __( 'Aqua Green', 'kirki' ),
-		    ),
-		);
+    Kirki::add_section( 'uuatheme_congregation_map', array(
+        'title'          => esc_attr__( 'Congregation Map', 'uuatheme' ),
+        'description'    => esc_attr__( 'Make changes to the information for maps', 'uuatheme' ),
+        'panel'          => '',
+        'priority'       => 10,
+    ) );
 
-	/* CONGREGATION INFORMATION FIELDS */
-	  
-	  /**
-	   * Address
-	   */
-	  $fields[] = array(
-	      'type'        => 'textarea',
-	      'setting'     => 'uuatheme_congregation_address',
-	      'label'       => __( 'Congregation Address for Maps', 'uuatheme' ),
-	      'description' => __( 'What is your physical street address, including city, state and zip code?', 'uuatheme' ),
-	      'section'     => 'uuatheme_congregation_information',
-	      'default'     => '',
-	      'priority'    => 15,
-	  );
+    Kirki::add_section( 'uuatheme_header_options', array(
+        'title'          => esc_attr__( 'Header Options', 'uuatheme' ),
+        'description'    => esc_attr__( 'Make changes to the site header', 'uuatheme' ),
+        'panel'          => '',
+        'priority'       => 10,
+    ) );
 
-	  /**
-	   * Add Google Maps API Key
-	   */
-	  $fields[] = array(
-	      'type'        => 'text',
-	      'setting'     => 'uuatheme_googlemapsapi',
-	      'label'       => __( 'Google Maps API Key', 'uuatheme' ),
-	      'description' => __( 'What is your Google Maps API Key', 'uuatheme' ),
-	      'section'     => 'uuatheme_congregation_information',
-	      'default'     => '',
-	      'priority'    => 15,
-	  );
-	  
+    Kirki::add_section( 'uuatheme_footer_options', array(
+        'title'          => esc_attr__( 'Footer Options', 'uuatheme' ),
+        'description'    => esc_attr__( 'Make changes to the site footer', 'uuatheme' ),
+        'panel'          => '',
+        'priority'       => 10,
+    ) );
 
+    Kirki::add_section( 'uuatheme_social_networks', array(
+        'title'          => esc_attr__( 'Social Networks', 'uuatheme' ),
+        'description'    => esc_attr__( 'Add social network web addresses for icon links in header and footer. Put the page address in the box including the http:// part.', 'uuatheme' ),
+        'panel'          => '',
+        'priority'       => 10,
+    ) );
 
-	/* SOCIAL CONNECTIONS */
-	
-	  /**
-	   * Add a Facebook link
-	   */
-	  $fields[] = array(
-	      'type'        => 'text',
-	      'setting'     => 'uuatheme_facebook_link',
-	      'label'       => __( 'Facebook Link', 'uuatheme' ),
-	      'description' => __( '', 'uuatheme' ),
-	      'section'     => 'uuatheme_social_connections',
-	      'default'     => '',
-	      'priority'    => 15,
-	  );
-	  
-	  /**
-	   * Add a Twitter link
-	   */
-	  $fields[] = array(
-	      'type'        => 'text',
-	      'setting'     => 'uuatheme_twitter_link',
-	      'label'       => __( 'Twitter Link', 'uuatheme' ),
-	      'description' => __( '', 'uuatheme' ),
-	      'section'     => 'uuatheme_social_connections',
-	      'default'     => '',
-	      'priority'    => 15,
-	  );
-	  
-	  /**
-	   * Add a YouTube link
-	   */
-	  $fields[] = array(
-	      'type'        => 'text',
-	      'setting'     => 'uuatheme_youtube_link',
-	      'label'       => __( 'YouTube Link', 'uuatheme' ),
-	      'description' => __( '', 'uuatheme' ),
-	      'section'     => 'uuatheme_social_connections',
-	      'default'     => '',
-	      'priority'    => 15,
-	  );
+    /*
+     * Customizer Fields
+     */
 
-	  /**
-	   * Add a Pinterest link
-	   */
-	  $fields[] = array(
-	      'type'        => 'text',
-	      'setting'     => 'uuatheme_pinterest_link',
-	      'label'       => __( 'Pinterest Link', 'uuatheme' ),
-	      'description' => __( '', 'uuatheme' ),
-	      'section'     => 'uuatheme_social_connections',
-	      'default'     => '',
-	      'priority'    => 15,
-	  );
-	  
-	  /**
-	   * Add a Instagram link
-	   */
-	  $fields[] = array(
-	      'type'        => 'text',
-	      'setting'     => 'uuatheme_instagram_link',
-	      'label'       => __( 'Instagram Link', 'uuatheme' ),
-	      'description' => __( '', 'uuatheme' ),
-	      'section'     => 'uuatheme_social_connections',
-	      'default'     => '',
-	      'priority'    => 15,
-	  );
-	  
-	  /**
-	   * Add a Google+ link
-	   */
-	  $fields[] = array(
-	      'type'        => 'text',
-	      'setting'     => 'uuatheme_googleplus_link',
-	      'label'       => __( 'GooglePlus Link', 'uuatheme' ),
-	      'description' => __( '', 'uuatheme' ),
-	      'section'     => 'uuatheme_social_connections',
-	      'default'     => '',
-	      'priority'    => 15,
-	  );
+    //* Theme Colour Options *//
 
-	  
-	/* HEADER FIELDS */
-	  
-	  /**
-	   * Site logo
-	   */
-	  $fields[] = array(
-				'type'     => 'image',
-				'setting'  => 'uuatheme_logo_upload',
-				'label'    => __( 'Logo Image', 'uuatheme' ),
-				'section'  => 'uuatheme_header_options',
-				'default'  => '',
-				'priority' => 1,
-				'transport' => 'refresh'
-	  );	  
-	
-	  /**
-	   * Add a text field beneath the utility menu
-	   */
-	  $fields[] = array(
-	      'type'        => 'textarea',
-	      'setting'     => 'uuatheme_header_text',
-	      'label'       => __( 'Header Text', 'uuatheme' ),
-	      'description' => __( 'Edit the text in the header beneath the utility menu.', 'uuatheme' ),
-	      'section'     => 'uuatheme_header_options',
-	      'default'     => 'Sunday Services: 10:30am',
-	      'priority'    => 15,
-	  );
-	
-	/* FOOTER FIELDS */
-	
-	  /**
-	   * Add a text field to add a link and logo for welcoming congregations
-	   */
-	  $fields[] = array(
-	      'type'        => 'text',
-	      'setting'     => 'uuatheme_welcoming_congregation_link',
-	      'label'       => __( 'Welcoming Congregation Link', 'uuatheme' ),
-	      'description' => __( 'Enter the address of your own page or the UUA page (http://www.uua.org/lgbtq/welcoming/program) about welcoming congregations if you want to display the welcoming congregations logo.', 'uuatheme' ),
-	      'section'     => 'uuatheme_footer_options',
-	      'default'     => '',
-	      'priority'    => 15,
-	  );	  
+    // Site Color Scheme
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+    'type'        => 'radio',
+    'settings'    => 'uuatheme_colors',
+    'label'       => __( 'Site Color Scheme', 'uuatheme' ),
+    'description' => __( 'Choose from the Dark Blue, Grey Red, or Aqua Green colour scheme.', 'uuatheme' ),
+    'section'     => 'uuatheme_design_options',
+    'default'     => '',
+    'priority'    => 10,
+    'choices'     => array(
+        'dark-blue'  => esc_attr__( 'Dark Blue', 'uuatheme' ),
+        'grey-red'   => esc_attr__( 'Grey Red', 'uuatheme' ),
+        'aqua-green' => esc_attr__( 'Aqua Green', 'uuatheme' ),
+        ),
+    ) );
 
-  
-	  /**
-		  * Add a text field to add a link and logo for green sanctuary
-	    */
-	  $fields[] = array(
-	      'type'        => 'text',
-	      'setting'     => 'uuatheme_green_sanctuary_link',
-	      'label'       => __( 'Green Sanctuary Logo', 'uuatheme' ),
-	      'description' => __( 'Enter the address of your own page or the UUA page (http://www.uua.org/environment/sanctuary) about green sanctuaries if you want to display the green sanctuary logo.', 'uuatheme' ),
-	      'section'     => 'uuatheme_footer_options',
-	      'default'     => '',
-	      'priority'    => 25,
-	  );
-		
+    //* Congregation Map *//
 
+    // Congregation Address
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'textarea',
+        'settings'    => 'uuatheme_congregation_address',
+        'label'       => __( 'Congregation Address for Maps', 'uuatheme' ),
+        'description' => __( 'Enter your physical street address, including city, state and zip code.', 'uuatheme' ),
+        'section'     => 'uuatheme_congregation_map',
+        'default'     => '',
+        'priority'    => 10,
+    ) );
 
-		/* FOOTER COPYRIGHT */
-	  
-	  /**
-	   * Copyright text
-	   */
-	  $fields[] = array(
-	      'type'        => 'textarea',
-	      'setting'     => 'uuatheme_copyright_text',
-	      'label'       => __( 'Copyright Text', 'uuatheme' ),
-	      'description' => __( 'Edit your footer copyright text. To add the copyright symbol, type &copy;', 'uuatheme' ),
-	      'section'     => 'uuatheme_footer_text',
-	      'default'     => '',
-	      'priority'    => 20,
-	  );
-    
-    
-  return $fields;
-    
+    // Google Maps API Key
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'text',
+        'settings'    => 'uuatheme_googlemapsapi',
+        'label'       => __( 'Google Maps API Key', 'uuatheme' ),
+        'description' => __( 'Follow Google’s instructions for signing up for an API account and getting a key.', 'uuatheme' ),
+        'section'     => 'uuatheme_congregation_map',
+        'default'     => '',
+        'priority'    => 10,
+    ) );
+
+    //* Header Options *//
+
+    // Site logo
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'image',
+        'settings'    => 'uuatheme_logo_upload',
+        'label'       => esc_attr__( 'Logo Image', 'uuatheme' ),
+        'section'     => 'uuatheme_header_options',
+        'default'     => '',
+        'priority'    => 10,
+    ) );
+
+    // Text content beneath the utility menu
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'textarea',
+        'settings'    => 'uuatheme_header_text',
+        'label'       => __( 'Header Text', 'uuatheme' ),
+        'description' => __( 'Edit the text in the header beneath the utility menu.', 'uuatheme' ),
+        'section'     => 'uuatheme_header_options',
+        'default'     => esc_attr__( 'Sunday Services: 10:30am', 'uuatheme' ),
+        'priority'    => 15,
+    ) );
+
+    //* Footer Options *//
+
+    // Link and logo for welcoming congregations
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'text',
+        'settings'    => 'uuatheme_welcoming_congregation_link',
+        'label'       => __( 'Welcoming Congregation Logo', 'uuatheme' ),
+        'description' => __( 'Enter the address of your own page or the UUA page (http://www.uua.org/lgbtq/welcoming/program) about welcoming congregations if you want to display the welcoming congregations logo.', 'uuatheme' ),
+        'section'     => 'uuatheme_footer_options',
+        'default'     => '',
+        'priority'    => 10,
+    ) );
+
+    // Link and logo for green sanctuary
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'text',
+        'settings'    => 'uuatheme_green_sanctuary_link',
+        'label'       => __( 'Green Sanctuary Logo', 'uuatheme' ),
+        'description' => __( 'Enter the address of your own page or the UUA page (http://www.uua.org/environment/sanctuary) about green sanctuaries if you want to display the green sanctuary logo.', 'uuatheme' ),
+        'section'     => 'uuatheme_footer_options',
+        'default'     => '',
+        'priority'    => 15,
+    ) );
+
+    // Link and logo for green sanctuary
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'textarea',
+        'settings'    => 'uuatheme_copyright_text',
+        'label'       => __( 'Copyright Text', 'uuatheme' ),
+        'description' => __( 'Edit your footer copyright text. To add the copyright symbol, type &copy;', 'uuatheme' ),
+        'section'     => 'uuatheme_footer_options',
+        'default'     => '',
+        'priority'    => 20,
+    ) );
+
+    //* Social Networks *//
+
+    // Facebook
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'text',
+        'settings'    => 'uuatheme_facebook_link',
+        'label'       => __( 'Facebook Link', 'uuatheme' ),
+        'section'     => 'uuatheme_social_networks',
+        'default'     => '',
+        'priority'    => 10,
+    ) );
+
+    // Twitter
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'text',
+        'settings'    => 'uuatheme_twitter_link',
+        'label'       => __( 'Twitter Link', 'uuatheme' ),
+        'section'     => 'uuatheme_social_networks',
+        'default'     => '',
+        'priority'    => 15,
+    ) );
+
+    // YouTube
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'text',
+        'settings'    => 'uuatheme_youtube_link',
+        'label'       => __( 'YouTube Link', 'uuatheme' ),
+        'section'     => 'uuatheme_social_networks',
+        'default'     => '',
+        'priority'    => 20,
+    ) );
+
+    // Pinterest
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'text',
+        'settings'    => 'uuatheme_pinterest_link',
+        'label'       => __( 'Pinterest Link', 'uuatheme' ),
+        'section'     => 'uuatheme_social_networks',
+        'default'     => '',
+        'priority'    => 25,
+    ) );
+
+    // Instagram
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'text',
+        'settings'    => 'uuatheme_instagram_link',
+        'label'       => __( 'Instagram Link', 'uuatheme' ),
+        'section'     => 'uuatheme_social_networks',
+        'default'     => '',
+        'priority'    => 30,
+    ) );
+
+    // GooglePlus
+    Kirki::add_field( 'uuatheme_kirki_config', array(
+        'type'        => 'text',
+        'settings'    => 'uuatheme_googleplus_link',
+        'label'       => __( 'GooglePlus Link', 'uuatheme' ),
+        'section'     => 'uuatheme_social_networks',
+        'default'     => '',
+        'priority'    => 35,
+    ) );
+
 }
-add_filter( 'kirki/fields', 'uuatheme_fields' );
-
+add_action( 'init', 'uuatheme_kirki_init' );
 
 /**
 * Add AJAX live preview for layout field: enqueue the js script that handles the live preview
 */
-
 function uuatheme_customizer_live_preview() {
-    wp_enqueue_script( 'uuatheme_css_preview', get_template_directory_uri().'/inc/js/uuatheme-customizer-preview.js', array( 'customize-preview', 'jquery' ), '', true );
+    wp_enqueue_script( 'uuatheme_css_preview', get_template_directory_uri() . '/inc/js/uuatheme-customizer-preview.js', array( 'customize-preview', 'jquery' ), '', true );
 }
 add_action( 'customize_preview_init', 'uuatheme_customizer_live_preview' );
 
-
-
-
 /**
- * Configuration sample for the Kirki Customizer.
+ * Filter the kirki configurations.
+ *
+ * @param array $config
  */
-function kirki_configuration() {
-	$args = array(
-		'disable_output' => true,
-	);
-	return $args;
+function uuatheme_kirki_config( $config ) {
+    $config['disable_output'] = true;
+    $config['disable_loader'] = true;
+    return $config;
 }
-add_filter( 'kirki/config', 'kirki_configuration' );
+add_filter( 'kirki_config', 'uuatheme_kirki_config' );
