@@ -2390,13 +2390,13 @@ this.options)});b._afterUpdate&&b._afterUpdate(a,b._groups)};b._update=function(
  * replace the dash with an underscore when adding it to the object below.
  *
  * .noConflict()
- * The routing is enclosed within an anonymous function so that you can 
+ * The routing is enclosed within an anonymous function so that you can
  * always reference jQuery with $, even when in .noConflict() mode.
  * ======================================================================== */
 
 (function($) {
 
-// Use this variable to set up the common and page specific functions. If you 
+// Use this variable to set up the common and page specific functions. If you
 // rename this variable, you will also need to rename the namespace below.
 var uuatheme = {
   // All pages
@@ -2410,13 +2410,13 @@ var uuatheme = {
         $('.slide-search').toggleClass('active');
       });
       /* FITVIDS - Target your .container, .wrapper, .post, etc. */
-      $(".wrap").fitVids();     
+      $(".wrap").fitVids();
     }
   },
   // Home page
   home: {
     init: function() {
-      /* MatchHeights */      
+      /* MatchHeights */
       $(function() {
         $('.widget .thumbnail, .match').matchHeight();
       });
@@ -2449,6 +2449,44 @@ var UTIL = {
   }
 };
 
-$(document).ready(UTIL.loadEvents);
+// Shortcode - Google Maps
+var uuatheme_maps = function() {
+
+    var map = [];
+    $( '.uuatheme_map_canvas' ).each(function( i ) {
+        var lat = $(this).data('lat'),
+            lng = $(this).data('lng'),
+            options = $(this).data('options');
+
+        var location = new google.maps.LatLng( lat, lng );
+
+        map[i] = new google.maps.Map(document.getElementById(this.id), {
+            zoom: options.zoom,
+            center: location,
+            scrollwheel: ( 'true' === options.enablescrollwheel.toLowerCase() ) ? 1 : 0,
+            disableDefaultUI: ( 'true' === options.disablecontrols.toLowerCase() ) ? 1 : 0,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        var infowindow = new google.maps.InfoWindow({
+            content: options.label
+        });
+
+        var marker = new google.maps.Marker({
+            position: location,
+            animation: google.maps.Animation.DROP,
+            title: options.label,
+            map: map[i]
+        });
+
+        google.maps.event.addListenerOnce( map[i], 'tilesloaded', function() {
+            infowindow.open( map[i], marker );
+        });
+    });
+}
+
+$(document)
+    .ready(UTIL.loadEvents)
+    .ready(uuatheme_maps);
 
 })(jQuery); // Fully reference jQuery after this point.
